@@ -87,9 +87,9 @@ flowchart LR
 - **One camera button.** A captured frame is checked for a barcode first. If there isn't one, it's analyzed as a food photo, so users never have to pick a mode.
 
 ### Why Base44
-A small training agency doesn't need, and can't pay for, someone to look after servers. Base44 provided production authentication, a database, hosting and serverless functions on day one, so the time went into features. The trade-off was less control over built-in parts like user roles, which caused the second problem below.
+A small training agency doesn't need, and can't pay for, someone to look after servers. Base44 provided production authentication, a database, hosting and serverless functions on day one, so the time went into features. The trade-off was less control over built-in parts like user roles, which caused the fourth challenge below.
 
-## Problems I solved
+## Technical challenges
 
 ### 1. Food logged at night showed up on the next day
 Clients said their food log "reset at 7 PM". The app worked out "today" in UTC, and 7 PM in Toronto is midnight UTC, so evening meals were saved under tomorrow's date. The same mistake was in four places: the photo analyzer, the calorie tracker, the analytics charts and the session calendar. In the calendar, a 10 AM session was saved as 15:00 UTC and showed at the wrong time.
@@ -112,9 +112,6 @@ The trainer–client link was stored in two places: an assignment table, and a f
 ### 4. Trainers weren't recognized as trainers
 The platform's built-in role field couldn't reliably tell trainers apart from clients, so trainer screens and permissions broke. **Fix:** I added a separate user-type field, and permission checks accept either one.
 
-### 5. "My workout plan is gone"
-A client said their plans had disappeared. Digging into the data showed they had signed up a second time with a different email. The plans were safely on the original account. **Fix:** a support issue rather than a code bug. Logging in with the original account solved it, and it's now on the list to detect duplicate sign-ups at registration.
-
 ## Results
 - **One place for the whole agency.** EJT manages its trainers, 30+ clients and every trainer–client assignment in the platform instead of in texts and spreadsheets.
 - **Personal coaching between sessions.** Each client gets their own trainer-written workout and nutrition plan, and the trainer sees their logs, progress and messages, so plans get adjusted for that person rather than staying one-size-fits-all.
@@ -124,7 +121,6 @@ A client said their plans had disappeared. Digging into the data showed they had
 ## What's next
 - **A unified fitness calendar** showing workouts, nutrition check-ins, weigh-ins and sessions on one timeline, so a trainer can see at a glance whether a client hit their workout, nutrition and weigh-in on a given day.
 - Marking sessions complete, which would log the workout automatically.
-- Detecting duplicate accounts at sign-up.
 
 ---
 
